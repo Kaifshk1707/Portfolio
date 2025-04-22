@@ -242,50 +242,48 @@
             platform with web 3.0, empowering users, influencers,
             entrepreneurs.
           </p>
-          <a href="#" class="btn">View Details</a>
+          <!-- <a href="#" class="btn">View Details</a> -->
         </div>
 
         <div class="project-box">
           <i class="bx bx-code-curly project-icon"></i>
           <h3>Spotify Clone (Web) (2023)</h3>
           <p>Using HTML, CSS, JavaScript based.</p>
-          <a href="#" class="btn">View Details</a>
+          <!-- <a href="#" class="btn">View Details</a> -->
         </div>
       </div>
     </section>
 
-    <section class="contact" id="contact">
-      <h2 class="heading">Contact <span>Me!</span></h2>
+  <section class="contact" id="contact">
+  <h2 class="heading">Contact <span>Me!</span></h2>
 
-      <form action="#" method="POST">
-        <div class="input-box">
-          <input type="text" name="fullName" placeholder="Full Name" required />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            required
-          />
-        </div>
-        <div class="input-box">
-          <input
-            type="tel"
-            name="mobile"
-            placeholder="Mobile Number"
-            required
-          />
-          <input type="text" name="subject" placeholder="Email Subject" />
-        </div>
-        <textarea
-          name="message"
-          cols="30"
-          rows="10"
-          placeholder="Your Message"
-          required
-        ></textarea>
-        <button type="submit" class="btn">Send Message</button>
-      </form>
-    </section>
+  <form id="contactForm" action="#" method="POST">
+    <div class="input-box">
+      <input type="text" name="fullName" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+    </div>
+    <div class="input-box">
+      <input type="tel" name="mobile" placeholder="Mobile Number" required />
+      <input type="text" name="subject" placeholder="Email Subject" />
+    </div>
+    <textarea
+      name="message"
+      cols="30"
+      rows="10"
+      placeholder="Your Message"
+      required
+    ></textarea>
+    <button type="submit" class="btn">Send Message</button>
+  </form>
+
+  <!-- Popup message container -->
+  <div id="popupMessage" style="display:none; position: fixed; top: 30%; left: 50%; 
+       transform: translate(-50%, -50%);
+       background-color: #56d25a; color: white; padding: 20px 40px; border-radius: 8px; 
+       font-size: 18px; box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 1000;">
+    Message Sent Successfully!
+  </div>
+</section>
 
     <footer class="footer">
       <div class="footer-text">
