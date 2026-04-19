@@ -1,7 +1,8 @@
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import profileImage from "../../assets/image/home.jpg";
 import SectionHeader from "../components/SectionHeader";
 import { aboutParagraphs } from "../data/portfolio";
+import { useIsSmallScreen } from "../hooks/useIsSmallScreen";
 
 const profileBadges = [
   { label: "3+ Years", className: "-left-6 top-10" },
@@ -10,6 +11,9 @@ const profileBadges = [
 ];
 
 export default function About() {
+  const isSmallScreen = useIsSmallScreen();
+  const shouldReduceMotion = useReducedMotion();
+  const reduceProfileMotion = shouldReduceMotion || isSmallScreen;
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [80, -80]);
   const mouseX = useMotionValue(0);
@@ -44,8 +48,8 @@ export default function About() {
 
         <div className="grid items-center gap-10 lg:grid-cols-[0.78fr_1.22fr]">
           <motion.div
-            className="relative mx-auto w-full max-w-md"
-            style={{ y }}
+            className="relative mx-auto w-full max-w-[19rem] sm:max-w-sm lg:max-w-[23rem]"
+            style={reduceProfileMotion ? undefined : { y }}
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -53,22 +57,22 @@ export default function About() {
           >
             <motion.div
               className="profile-frame relative"
-              style={{ rotateX, rotateY, transformPerspective: 1100 }}
-              onPointerMove={handleProfileMove}
-              onPointerLeave={resetProfileMove}
-              whileHover={{ scale: 1.015 }}
+              style={reduceProfileMotion ? undefined : { rotateX, rotateY, transformPerspective: 1100 }}
+              onPointerMove={reduceProfileMotion ? undefined : handleProfileMove}
+              onPointerLeave={reduceProfileMotion ? undefined : resetProfileMove}
+              whileHover={reduceProfileMotion ? undefined : { scale: 1.015 }}
               transition={{ type: "spring", stiffness: 160, damping: 22 }}
             >
-              <div className="absolute -inset-7 rounded-[42px] bg-[conic-gradient(from_180deg,rgba(57,255,136,0.38),transparent,rgba(199,255,71,0.32),transparent,rgba(57,255,136,0.38))] opacity-60 blur-2xl" />
+              <div className="absolute -inset-4 rounded-[32px] bg-[conic-gradient(from_180deg,rgba(57,255,136,0.34),transparent,rgba(199,255,71,0.28),transparent,rgba(57,255,136,0.34))] opacity-50 blur-xl sm:-inset-6 sm:rounded-[38px]" />
               <motion.div
-                className="absolute -inset-3 rounded-[36px] border border-neon/30"
-                animate={{ rotate: [0, 1.5, 0, -1.5, 0] }}
+                className="absolute -inset-2 rounded-[30px] border border-neon/30 sm:-inset-3 sm:rounded-[36px]"
+                animate={reduceProfileMotion ? undefined : { rotate: [0, 1.5, 0, -1.5, 0] }}
                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
               />
               <div className="absolute -left-5 top-10 h-28 w-3 rounded-full bg-neon shadow-glow" />
               <div className="absolute -bottom-5 right-10 h-3 w-32 rounded-full bg-acid/80 shadow-[0_0_28px_rgba(199,255,71,0.45)]" />
 
-              {profileBadges.map((badge, index) => (
+              {!isSmallScreen && profileBadges.map((badge, index) => (
                 <motion.div
                   key={badge.label}
                   className={`absolute z-20 hidden rounded-2xl border border-white/10 bg-ink/80 px-4 py-3 text-xs font-black uppercase tracking-[0.2em] text-neon shadow-glass backdrop-blur-xl sm:block ${badge.className}`}
@@ -84,28 +88,29 @@ export default function About() {
                 </motion.div>
               ))}
 
-              <div className="profile-shell card-grid relative overflow-hidden rounded-[34px] border border-white/10 bg-white/[0.055] p-4 shadow-glass backdrop-blur-2xl">
+              <div className="profile-shell card-grid relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.055] p-3 shadow-glass backdrop-blur-xl sm:rounded-[34px] sm:p-4 sm:backdrop-blur-2xl">
                 <span className="profile-corner left-4 top-4 border-l border-t" />
                 <span className="profile-corner right-4 top-4 border-r border-t" />
                 <span className="profile-corner bottom-4 left-4 border-b border-l" />
                 <span className="profile-corner bottom-4 right-4 border-b border-r" />
 
-                <div className="relative overflow-hidden rounded-[24px] bg-ink">
+                <div className="relative overflow-hidden rounded-[22px] bg-ink">
                   <motion.img
                     src={profileImage}
                     alt="Shaikh Kaif"
-                    className="h-[32rem] w-full object-cover object-center contrast-[1.05] saturate-[0.9]"
+                    className="h-[23rem] w-full object-cover object-center contrast-[1.05] saturate-[0.9] sm:h-[26rem] lg:h-[28rem]"
                     loading="lazy"
+                    decoding="async"
                     style={{
-                      x: imageX,
-                      y: imageY,
-                      scale: 1.06,
+                      x: reduceProfileMotion ? 0 : imageX,
+                      y: reduceProfileMotion ? 0 : imageY,
+                      scale: reduceProfileMotion ? 1 : 1.04,
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-neon/5" />
                   <motion.div
                     className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/10 to-transparent"
-                    animate={{ y: [-90, 420] }}
+                    animate={reduceProfileMotion ? undefined : { y: [-90, 420] }}
                     transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.2 }}
                   />
                 </div>
