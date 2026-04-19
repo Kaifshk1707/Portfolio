@@ -50,14 +50,14 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.div
+          {/* <motion.div
             className="chip mb-6 inline-flex"
             initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.08 }}
           >
             Available for mobile app roles
-          </motion.div>
+          </motion.div> */}
           <h1 className="font-display text-5xl font-black leading-[0.95] tracking-[-0.04em] text-white sm:text-7xl lg:text-8xl">
             {heroLines.map((line, index) => (
               <span className="block overflow-hidden pb-2" key={line}>
